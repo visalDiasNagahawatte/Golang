@@ -1,28 +1,44 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"net/http"
+)
 
-
+var firstTask = "Submit a report"
+var secondTask = "Office meeting"
+var thirdTask = "Go to Supermarket"
+var fourthTask =  "Get a haircut"
+var fifthTask = "Go on a trip"
+	
+var taskItems =[]string {firstTask,secondTask,thirdTask,fourthTask,fifthTask}
 
 func main(){
 
-	var firstTask = "Submit a report"
-	var secondTask = "Office meeting"
-	var thirdTask = "Go to Supermarket"
-	var fourthTask =  "Get a haircut"
-	var fifthTask = "Go on a trip"
-	
-	var taskItems =[]string {firstTask,secondTask,thirdTask,fourthTask,fifthTask}
 
-    fmt.Println("Welcome to To-Do List App")
-	fmt.Println()
+	http.HandleFunc("/",helloUser)
+	http.HandleFunc("/showTasks", showTasks)
+
+	http.ListenAndServe(":8080",nil)
+	// fmt.Println()
  
-	printTasks(taskItems)
-	taskItems= addTasks(taskItems,"Go for a run")
+	// printTasks(taskItems)
+	// taskItems= addTasks(taskItems,"Go for a run")
 	
-	fmt.Println("updated list")
-	printTasks(taskItems)
+	// fmt.Println("updated list")
+	// printTasks(taskItems)
 
+}
+
+func helloUser(writer http.ResponseWriter, request *http.Request){
+	var greeting = "Welcome to To-Do List App"
+	fmt.Fprintln(writer, greeting)
+}
+func showTasks (writer http.ResponseWriter, request *http.Request){
+	for _, task:= range taskItems{
+		fmt.Fprintln(writer, task)
+	}
+	
 }
 
 func printTasks(taskItems []string){

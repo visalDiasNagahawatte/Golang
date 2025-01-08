@@ -5,7 +5,7 @@ import (
 	"net/http"
 )
 
-var firstTask = "Submit a report"
+var firstTask string = "Submit a report"
 var secondTask = "Office meeting"
 var thirdTask = "Go to Supermarket"
 var fourthTask =  "Get a haircut"
@@ -31,7 +31,7 @@ func main(){
 }
 
 func helloUser(writer http.ResponseWriter, request *http.Request){
-	var greeting = "Welcome to To-Do List App"
+	var greeting = Greet("Visal")
 	fmt.Fprintln(writer, greeting)
 }
 func showTasks (writer http.ResponseWriter, request *http.Request){
